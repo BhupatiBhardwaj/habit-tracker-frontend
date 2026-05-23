@@ -1,0 +1,83 @@
+<div class="page-container reports-page">
+  <header class="page-header">
+    <div>
+      <h1>Reports</h1>
+      <p class="muted page-subtitle">Your progress at a glance (UTC)</p>
+    </div>
+  </header>
+
+  <div class="card filters">
+    <label class="field inline-field">
+      <span>From</span>
+      <input type="date" [(ngModel)]="fromDate" />
+    </label>
+    <label class="field inline-field">
+      <span>To</span>
+      <input type="date" [(ngModel)]="toDate" />
+    </label>
+    <button type="button" class="btn btn-primary" (click)="loadSummary()" [disabled]="loading">
+      Apply
+    </button>
+  </div>
+
+  @if (loading) {
+    <p class="muted">Loading...</p>
+  }
+
+  @if (!loading && summary) {
+    <div class="overview-grid">
+      <div class="overview-card">
+        <span class="overview-value">{{ avgCompletion }}%</span>
+        <span class="overview-label">Avg completion</span>
+      </div>
+      <div class="overview-card">
+        <span class="overview-value">{{ onTrackCount }}/{{ habitCount }}</span>
+        <span class="overview-label">On track (≥80%)</span>
+      </div>
+      <div class="overview-card">
+        <span class="overview-value">{{ totalPoints }}</span>
+        <span class="overview-label">Total points</span>
+      </div>
+      <div class="overview-card">
+        <span class="overview-value">{{ habitCount }}</span>
+        <span class="overview-label">Habits tracked</span>
+      </div>
+    </div>
+
+    @if (summary.habits.length > 0) {
+      <div class="habit-grid">
+        @for (h of summary.habits; track h.habitId) {
+          <button type="button" class="habit-tile card" [class]="progressTone(h.completionPercent)" (click)="openDetail(h.habitId)">
+            <div class="ring-wrap">
+              <svg class="progress-ring" viewBox="0 0 88 88" aria-hidden="true">
+                <circle class="ring-bg" cx="44" cy="44" r="36" />
+                <circle
+                  class="ring-fill"
+                  cx="44"
+                  cy="44"
+                  r="36"
+                  [attr.stroke-dasharray]="ringDash(h.completionPercent)"
+                />
+              </svg>
+              <span class="ring-label">{{ Math.min(h.completionPercent, 999) }}%</span>
+            </div>
+            <div class="tile-body">
+              <strong class="tile-name">{{ h.name }}</strong>
+              <span class="tile-meta">{{ frequencyLabel(h) }} · target {{ h.targetCount }}</span>
+              <div class="tile-stats">
+                <span><em>{{ h.actualCount }}</em> / {{ h.expectedCount }} done</span>
+                <span>{{ h.totalPoints }} pts · 🔥 {{ h.currentStreak }}</span>
+              </div>
+            </div>
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="card empty-state">
+        <p>No habits to report on.</p>
+        <p class="muted">Add habits and log entries to see progress here.</p>
+      </div>
+    }
+  }
+</div>
+

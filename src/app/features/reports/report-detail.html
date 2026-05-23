@@ -1,0 +1,118 @@
+<div class="page-container">
+  <a routerLink="/reports" class="back-link">← Reports</a>
+
+  @if (detail) {
+    <header class="page-header">
+      <div>
+        <h1>{{ detail.name }}</h1>
+        <p class="muted page-subtitle">{{ frequencyLabel() }} · target {{ detail.targetCount }} per period</p>
+      </div>
+    </header>
+  }
+
+  <div class="card filters">
+    <label class="field inline-field">
+      <span>From</span>
+      <input type="date" [(ngModel)]="fromDate" />
+    </label>
+    <label class="field inline-field">
+      <span>To</span>
+      <input type="date" [(ngModel)]="toDate" />
+    </label>
+    <button type="button" class="btn btn-primary" (click)="loadDetail()" [disabled]="loading">
+      Apply
+    </button>
+  </div>
+
+  @if (loading) {
+    <p class="muted">Loading...</p>
+  }
+
+  @if (!loading && detail) {
+    <div class="detail-stats">
+      <div class="stat-box">
+        <strong>{{ detail.actualCount }}</strong>
+        <span>Logged days</span>
+      </div>
+      <div class="stat-box">
+        <strong>{{ detail.expectedCount }}</strong>
+        <span>Expected</span>
+      </div>
+      <div class="stat-box">
+        <strong>{{ detail.completionPercent }}%</strong>
+        <span>Completion</span>
+      </div>
+      <div class="stat-box">
+        <strong>{{ detail.totalPoints }}</strong>
+        <span>Points</span>
+      </div>
+      <div class="stat-box">
+        <strong>{{ detail.currentStreak }}</strong>
+        <span>Streak</span>
+      </div>
+    </div>
+
+    <div class="card heatmap-card">
+      <h2 class="heatmap-title">Activity</h2>
+      <p class="muted heatmap-subtitle">Each square is one UTC day. Darker green = more points that day.</p>
+
+      <div class="heatmap-scroll">
+        <div class="heatmap-month-row" [style.minWidth.px]="heatmapWeeks.length * 15">
+          @for (label of heatmapMonthLabels; track label.weekIndex) {
+            <span class="heatmap-month" [style.left.px]="label.weekIndex * 15">{{ label.label }}</span>
+          }
+        </div>
+
+        <div class="heatmap-body">
+          <div class="heatmap-day-labels" aria-hidden="true">
+            <span></span>
+            <span>Mon</span>
+            <span></span>
+            <span>Wed</span>
+            <span></span>
+            <span>Fri</span>
+            <span></span>
+          </div>
+
+          <div class="heatmap-grid">
+            @for (week of heatmapWeeks; track $index) {
+              <div class="heatmap-week">
+                @for (cell of week; track cell.date) {
+                  <div
+                    class="heatmap-cell"
+                    [class]="cell.inRange ? 'level-' + cell.level : 'level-empty'"
+                    [attr.title]="cell.title"
+                    [attr.aria-label]="cell.title"
+                  ></div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="heatmap-legend">
+        <span class="muted">Less</span>
+        <span class="heatmap-cell level-0" aria-hidden="true"></span>
+        <span class="heatmap-cell level-1" aria-hidden="true"></span>
+        <span class="heatmap-cell level-2" aria-hidden="true"></span>
+        <span class="heatmap-cell level-3" aria-hidden="true"></span>
+        <span class="heatmap-cell level-4" aria-hidden="true"></span>
+        <span class="muted">More</span>
+      </div>
+    </div>
+
+    <div class="card insight-card">
+      @if (detail.completionPercent >= 100) {
+        <p>You're meeting or beating your goal for this period. Keep the momentum going.</p>
+      } @else if (detail.completionPercent >= 70) {
+        <p>You're close — a little more consistency will get you to your target.</p>
+      } @else {
+        <p>There's room to grow. Focus on logging on your scheduled days to close the gap.</p>
+      }
+      <p class="muted insight-footer">
+        Use <strong>Logs</strong> to add or change individual days.
+      </p>
+    </div>
+  }
+</div>

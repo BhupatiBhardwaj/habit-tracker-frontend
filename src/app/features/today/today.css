@@ -1,0 +1,263 @@
+.date-picker {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+
+  padding: 0.85rem 1rem;
+
+}
+
+
+
+.date-picker-label {
+
+  font-weight: 600;
+
+  font-size: 0.9rem;
+
+  color: var(--color-text-muted);
+
+  white-space: nowrap;
+
+}
+
+
+
+.date-picker input[type="date"] {
+
+  flex: 1;
+
+  border: 1px solid var(--color-border, #e2e8f0);
+
+  border-radius: var(--radius-sm);
+
+  padding: 0.5rem 0.65rem;
+
+  font-family: inherit;
+
+  font-size: 1rem;
+
+}
+
+
+
+.section-title {
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+
+  color: var(--color-text-muted);
+
+  margin: 1.25rem 0 0.5rem;
+
+}
+
+
+
+.section-toggle {
+
+  width: 100%;
+
+  margin-top: 1.25rem;
+
+  padding: 0.75rem;
+
+  border: none;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+
+  font-weight: 600;
+
+  border-radius: var(--radius-sm);
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  display: flex;
+
+  justify-content: space-between;
+
+}
+
+
+
+.habit-card.actionable {
+
+  cursor: pointer;
+
+}
+
+
+
+.habit-card.actionable:active {
+
+  transform: scale(0.99);
+
+}
+
+
+
+.action-hint {
+
+  font-size: 0.85rem;
+
+  color: var(--color-primary);
+
+  font-weight: 600;
+
+}
+
+
+
+.progress-badge {
+
+  display: block;
+
+  font-size: 0.8rem;
+
+  color: var(--color-text-muted);
+
+  margin-top: 0.2rem;
+
+}
+
+
+
+.logged-badge {
+
+  font-size: 0.75rem;
+
+  color: var(--color-text-muted);
+
+  font-weight: 600;
+
+}
+
+
+
+.btn-sm {
+
+  padding: 0.45rem 0.75rem;
+
+  font-size: 0.8rem;
+
+}
+
+
+
+.btn-danger {
+
+  background: #fef2f2;
+
+  color: #dc2626;
+
+  border: 1px solid #fecaca;
+
+}
+
+
+
+.btn-danger:hover {
+
+  background: #fee2e2;
+
+}
+
+
+
+.completed-card {
+
+  opacity: 0.95;
+
+}
+
+
+
+.completed-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.35rem;
+
+  flex-wrap: wrap;
+
+  justify-content: flex-end;
+
+}
+
+
+
+.dialog-panel-sm {
+
+  max-width: 22rem;
+
+}
+
+
+
+.dialog-panel-sm p {
+
+  margin: 0.75rem 0 1rem;
+
+  line-height: 1.5;
+
+  color: var(--color-text-muted);
+
+}
+
+.day-points-banner {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+
+  padding: 0.9rem 1rem;
+
+  background: linear-gradient(135deg, #eef2ff 0%, #f0fdf4 100%);
+
+  border: 1px solid #c7d2fe;
+
+}
+
+.day-points-label {
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  color: var(--color-text-muted);
+
+}
+
+.day-points-value {
+
+  font-size: 1.5rem;
+
+  font-weight: 800;
+
+  color: #312e81;
+
+  line-height: 1;
+
+}
+
+

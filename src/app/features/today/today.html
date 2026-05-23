@@ -1,0 +1,306 @@
+<div class="page-container">
+
+  <header class="page-header">
+
+    <div>
+
+      <h1>Logs</h1>
+
+      <p class="muted page-subtitle">View and manage entries by day (UTC)</p>
+
+    </div>
+
+  </header>
+
+
+
+  <label class="date-picker card">
+
+    <span class="date-picker-label">Date</span>
+
+    <input type="date" [(ngModel)]="selectedDate" (change)="onDateChange()" />
+
+  </label>
+
+  @if (!loading) {
+    <div class="day-points-banner card">
+      <span class="day-points-label">Total points · {{ selectedDate }}</span>
+      <strong class="day-points-value">{{ dayTotalPoints }}</strong>
+    </div>
+  }
+
+
+
+  @if (loading) {
+
+    <p class="muted">Loading...</p>
+
+  }
+
+
+
+  @if (!loading) {
+
+    @if (dashboard.dailyPending.length > 0) {
+
+      <h2 class="section-title">{{ isToday ? 'Pending today' : 'Not logged this day' }}</h2>
+
+      @for (card of dashboard.dailyPending; track card.habitId) {
+
+        <div class="card habit-card actionable" (click)="onLogCard(card)">
+
+          <div class="habit-header">
+
+            <strong>{{ card.name }}</strong>
+
+            <span class="action-hint">{{ logButtonLabel(card) }}</span>
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+
+
+    @if (dashboard.weeklyProgress.length > 0) {
+
+      <h2 class="section-title">This week</h2>
+
+      @for (card of dashboard.weeklyProgress; track card.habitId) {
+
+        <div class="card habit-card">
+
+          <div class="habit-header">
+
+            <div>
+
+              <strong>{{ card.name }}</strong>
+
+              <span class="progress-badge">{{ progressLabel(card) }}</span>
+
+            </div>
+
+            @if (!card.isCompletedToday) {
+
+              <button type="button" class="btn btn-primary btn-sm" (click)="onLogCard(card); $event.stopPropagation()">
+
+                + Log
+
+              </button>
+
+            } @else {
+
+              <span class="logged-badge">Logged this day</span>
+
+            }
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+
+
+    @if (dashboard.monthlyProgress.length > 0) {
+
+      <h2 class="section-title">This month</h2>
+
+      @for (card of dashboard.monthlyProgress; track card.habitId) {
+
+        <div class="card habit-card">
+
+          <div class="habit-header">
+
+            <div>
+
+              <strong>{{ card.name }}</strong>
+
+              <span class="progress-badge">{{ progressLabel(card) }}</span>
+
+            </div>
+
+            @if (!card.isCompletedToday) {
+
+              <button type="button" class="btn btn-primary btn-sm" (click)="onLogCard(card); $event.stopPropagation()">
+
+                + Log
+
+              </button>
+
+            } @else {
+
+              <span class="logged-badge">Logged this day</span>
+
+            }
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+
+
+    @if (dashboard.completedToday.length > 0) {
+
+      <button type="button" class="section-toggle" (click)="showCompleted = !showCompleted">
+
+        Logged on {{ selectedDate }} ({{ dashboard.completedToday.length }})
+
+        <span>{{ showCompleted ? '−' : '+' }}</span>
+
+      </button>
+
+      @if (showCompleted) {
+
+        @for (card of dashboard.completedToday; track card.habitId) {
+
+          <div class="card habit-card habit-done completed-card">
+
+            <div class="habit-header">
+
+              <strong>{{ card.name }}</strong>
+
+              <div class="completed-actions">
+
+                @if (card.points != null && card.points > 0) {
+
+                  <span class="points-badge">{{ card.points }} pts</span>
+
+                }
+
+                <button type="button" class="btn btn-ghost btn-sm" (click)="openEditDialog(card); $event.stopPropagation()">
+
+                  Edit
+
+                </button>
+
+                <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEntry(card, $event)">
+
+                  Remove
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <p class="view-value">{{ formatCompletedValue(card) }}</p>
+
+          </div>
+
+        }
+
+      }
+
+    }
+
+
+
+    @if (
+
+      dashboard.dailyPending.length === 0 &&
+
+      dashboard.weeklyProgress.length === 0 &&
+
+      dashboard.monthlyProgress.length === 0 &&
+
+      dashboard.completedToday.length === 0
+
+    ) {
+
+      <div class="card empty-state">
+
+        <p>Nothing to show for this date.</p>
+
+        <p class="muted">Add habits or pick another day.</p>
+
+      </div>
+
+    }
+
+  }
+
+</div>
+
+
+
+<dialog #logDialog class="app-dialog" (click)="closeLogDialog()">
+
+  <div class="dialog-panel" (click)="$event.stopPropagation()">
+
+    @if (logTarget) {
+
+      <h2>{{ editingEntryId ? 'Edit' : 'Log' }} — {{ logTarget.name }}</h2>
+
+      @if (logTarget.typeId === 1) {
+
+        <label class="field">
+
+          <span>Hours</span>
+
+          <input type="number" min="0" step="0.01" [(ngModel)]="logTimeHours" />
+
+        </label>
+
+      }
+
+      @if (logTarget.typeId === 3) {
+
+        <label class="field">
+
+          <span>Quantity</span>
+
+          <input type="number" min="0" step="0.01" [(ngModel)]="logQuantity" />
+
+        </label>
+
+      }
+
+      <div class="dialog-actions">
+
+        <button type="button" class="btn btn-ghost" (click)="closeLogDialog()">Cancel</button>
+
+        <button type="button" class="btn btn-primary" (click)="confirmLogDialog()" [disabled]="logging">
+
+          Save
+
+        </button>
+
+      </div>
+
+    }
+
+  </div>
+
+</dialog>
+
+
+
+<dialog #errorDialog class="app-dialog" (click)="closeErrorDialog()">
+
+  <div class="dialog-panel dialog-panel-sm" (click)="$event.stopPropagation()">
+
+    <h2>Already logged</h2>
+
+    <p>{{ errorMessage }}</p>
+
+    <div class="dialog-actions">
+
+      <button type="button" class="btn btn-primary" (click)="closeErrorDialog()">OK</button>
+
+    </div>
+
+  </div>
+
+</dialog>
+
+

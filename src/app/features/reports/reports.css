@@ -1,0 +1,633 @@
+.reports-page .filters {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+
+  align-items: flex-end;
+
+  margin-bottom: 1rem;
+
+}
+
+
+
+.inline-field {
+
+  flex: 1;
+
+  min-width: 120px;
+
+  margin-bottom: 0;
+
+}
+
+
+
+.overview-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 0.65rem;
+
+  margin-bottom: 1.25rem;
+
+}
+
+
+
+.overview-card {
+
+  background: linear-gradient(145deg, #eef2ff 0%, #f8fafc 100%);
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: var(--radius-md, 12px);
+
+  padding: 0.85rem 1rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.15rem;
+
+}
+
+
+
+.overview-value {
+
+  font-size: 1.35rem;
+
+  font-weight: 800;
+
+  color: #312e81;
+
+  line-height: 1.2;
+
+}
+
+
+
+.overview-label {
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+
+  color: var(--color-text-muted);
+
+}
+
+
+
+.habit-grid {
+
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 0.75rem;
+
+}
+
+
+
+@media (min-width: 480px) {
+
+  .habit-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+
+
+.habit-tile {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.85rem;
+
+  text-align: left;
+
+  width: 100%;
+
+  cursor: pointer;
+
+  border: 1px solid #e2e8f0;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  font-family: inherit;
+
+  padding: 1rem;
+
+}
+
+
+
+.habit-tile:active {
+
+  transform: scale(0.98);
+
+}
+
+
+
+.habit-tile.tone-great .ring-fill {
+
+  stroke: #059669;
+
+}
+
+
+
+.habit-tile.tone-good .ring-fill {
+
+  stroke: #6366f1;
+
+}
+
+
+
+.habit-tile.tone-mid .ring-fill {
+
+  stroke: #f59e0b;
+
+}
+
+
+
+.habit-tile.tone-low .ring-fill {
+
+  stroke: #f43f5e;
+
+}
+
+
+
+.ring-wrap {
+
+  position: relative;
+
+  width: 72px;
+
+  height: 72px;
+
+  flex-shrink: 0;
+
+}
+
+
+
+.progress-ring {
+
+  width: 100%;
+
+  height: 100%;
+
+  transform: rotate(-90deg);
+
+}
+
+
+
+.ring-bg {
+
+  fill: none;
+
+  stroke: #e2e8f0;
+
+  stroke-width: 8;
+
+}
+
+
+
+.ring-fill {
+
+  fill: none;
+
+  stroke-width: 8;
+
+  stroke-linecap: round;
+
+  transition: stroke-dasharray 0.3s ease;
+
+}
+
+
+
+.ring-label {
+
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 0.8rem;
+
+  font-weight: 800;
+
+  color: #1e293b;
+
+}
+
+
+
+.tile-body {
+
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.25rem;
+
+}
+
+
+
+.tile-name {
+
+  font-size: 1rem;
+
+  line-height: 1.2;
+
+}
+
+
+
+.tile-meta {
+
+  font-size: 0.75rem;
+
+  color: var(--color-text-muted);
+
+}
+
+
+
+.tile-stats {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.1rem;
+
+  font-size: 0.78rem;
+
+  color: #475569;
+
+}
+
+
+
+.tile-stats em {
+
+  font-style: normal;
+
+  font-weight: 700;
+
+  color: #312e81;
+
+}
+
+
+
+/* Detail page */
+
+.detail-hero {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  padding: 1.5rem 1rem;
+
+  margin-bottom: 1rem;
+
+  background: linear-gradient(160deg, #eef2ff 0%, #fff 55%);
+
+}
+
+
+
+.detail-hero .ring-wrap {
+
+  width: 120px;
+
+  height: 120px;
+
+  margin-bottom: 0.75rem;
+
+}
+
+
+
+.detail-hero .ring-label {
+
+  font-size: 1.25rem;
+
+}
+
+
+
+.detail-stats {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(4.75rem, 1fr));
+
+  gap: 0.5rem;
+
+  margin-bottom: 1rem;
+
+}
+
+
+
+.stat-box {
+
+  text-align: center;
+
+  padding: 0.85rem 0.5rem;
+
+  background: #f8fafc;
+
+  border-radius: var(--radius-sm);
+
+  border: 1px solid #e2e8f0;
+
+}
+
+
+
+.stat-box strong {
+
+  display: block;
+
+  font-size: 1.1rem;
+
+  color: #312e81;
+
+}
+
+
+
+.stat-box span {
+
+  font-size: 0.7rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+
+  color: var(--color-text-muted);
+
+  font-weight: 600;
+
+}
+
+
+
+.insight-card {
+
+  padding: 1rem;
+
+  line-height: 1.5;
+
+  color: #475569;
+
+}
+
+
+
+.back-link {
+
+  display: inline-block;
+
+  margin-bottom: 0.75rem;
+
+  color: var(--color-primary);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  font-size: 0.9rem;
+
+}
+
+.heatmap-card {
+
+  padding: 1rem;
+
+  margin-bottom: 1rem;
+
+  overflow: hidden;
+
+}
+
+.heatmap-title {
+
+  font-size: 1rem;
+
+  margin: 0 0 0.25rem;
+
+}
+
+.heatmap-subtitle {
+
+  font-size: 0.8rem;
+
+  margin: 0 0 1rem;
+
+}
+
+.heatmap-scroll {
+
+  overflow-x: auto;
+
+  padding-bottom: 0.25rem;
+
+}
+
+.heatmap-month-row {
+
+  position: relative;
+
+  height: 1rem;
+
+  margin-bottom: 0.35rem;
+
+  margin-left: 1.75rem;
+
+}
+
+.heatmap-month {
+
+  position: absolute;
+
+  top: 0;
+
+  font-size: 0.65rem;
+
+  color: var(--color-text-muted);
+
+  font-weight: 600;
+
+}
+
+.heatmap-body {
+
+  display: flex;
+
+  gap: 0.35rem;
+
+}
+
+.heatmap-day-labels {
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  font-size: 0.6rem;
+
+  color: var(--color-text-muted);
+
+  padding: 0 0.15rem 0 0;
+
+  height: 91px;
+
+  flex-shrink: 0;
+
+}
+
+.heatmap-day-labels span {
+
+  line-height: 1;
+
+  height: 11px;
+
+}
+
+.heatmap-grid {
+
+  display: flex;
+
+  gap: 3px;
+
+}
+
+.heatmap-week {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+}
+
+.heatmap-cell {
+
+  width: 11px;
+
+  height: 11px;
+
+  border-radius: 2px;
+
+  flex-shrink: 0;
+
+}
+
+.heatmap-cell.level-empty {
+
+  background: transparent;
+
+}
+
+.heatmap-cell.level-0 {
+
+  background: #ebedf0;
+
+}
+
+.heatmap-cell.level-1 {
+
+  background: #9be9a8;
+
+}
+
+.heatmap-cell.level-2 {
+
+  background: #40c463;
+
+}
+
+.heatmap-cell.level-3 {
+
+  background: #30a14e;
+
+}
+
+.heatmap-cell.level-4 {
+
+  background: #216e39;
+
+}
+
+.heatmap-legend {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 3px;
+
+  margin-top: 0.75rem;
+
+  font-size: 0.7rem;
+
+}
+
+.insight-footer {
+
+  margin-top: 0.75rem;
+
+}
+
+

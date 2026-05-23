@@ -1,0 +1,43 @@
+<div class="app-container">
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <nav class="bottom-nav">
+
+    <a
+      routerLink="/logs"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Logs
+    </a>
+
+    <a
+      routerLink="/habits"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Habits
+    </a>
+
+    <a
+      routerLink="/categories"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Categories
+    </a>
+
+    <a
+      routerLink="/reports"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Reports
+    </a>
+
+  </nav>
+
+</div>

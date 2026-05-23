@@ -1,0 +1,106 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Habits</h1>
+    <button type="button" class="btn btn-primary" (click)="openAdd()">
+      <app-icon name="plus" />
+      Add habit
+    </button>
+  </header>
+
+  @if (habits.length === 0) {
+    <div class="card empty-state">
+      <p>No habits yet.</p>
+      <p class="muted">Tap Add habit to create your first one.</p>
+    </div>
+  }
+
+  @for (habit of habits; track habit.id) {
+    <div class="card list-card">
+      <div class="list-card-body">
+        <strong>{{ habit.name }}</strong>
+        <span class="muted">{{ formatFrequency(habit) }} · {{ typeLabel(habit.typeid) }} · {{ formatPointsRate(habit) }}</span>
+      </div>
+      <div class="list-card-actions">
+        <button type="button" class="btn btn-icon" (click)="openEdit(habit)" aria-label="Edit">
+          <app-icon name="pencil" />
+        </button>
+        <button type="button" class="btn btn-icon btn-danger" (click)="openDeleteConfirm(habit)" aria-label="Delete">
+          <app-icon name="trash" />
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<dialog #formDialog class="app-dialog" (click)="closeForm()">
+  <form class="dialog-panel" (click)="$event.stopPropagation()" (ngSubmit)="saveHabit()">
+    <h2>{{ editingId ? 'Edit habit' : 'Add habit' }}</h2>
+
+    <label class="field">
+      <span>Name</span>
+      <input type="text" [(ngModel)]="formName" name="name" placeholder="Habit name" required />
+    </label>
+
+    <label class="field">
+      <span>Category</span>
+      <select [(ngModel)]="formCategoryId" name="category">
+        @for (category of categories; track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Type</span>
+      <select [(ngModel)]="formTypeId" name="type">
+        @for (type of types; track type.id) {
+          <option [value]="type.id">{{ type.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Frequency</span>
+      <select [(ngModel)]="formFrequencyType" name="frequency">
+        @for (freq of frequencies; track freq.id) {
+          <option [value]="freq.id">{{ freq.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Target count</span>
+      <input type="number" min="1" [(ngModel)]="formTargetCount" name="targetCount" required />
+    </label>
+
+    <label class="field">
+      <span>{{ pointsPerUnitLabel }}</span>
+      <input
+        type="number"
+        min="0"
+        step="0.01"
+        [(ngModel)]="formPointsPerUnit"
+        name="pointsPerUnit"
+        required
+      />
+    </label>
+
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" (click)="closeForm()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog #deleteDialog class="app-dialog" (click)="closeDelete()">
+  <div class="dialog-panel" (click)="$event.stopPropagation()">
+    <h2>Delete habit?</h2>
+    <p class="muted">
+      "{{ deleteTarget?.name }}" will be hidden. Past entries stay in the database.
+    </p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" (click)="closeDelete()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</dialog>

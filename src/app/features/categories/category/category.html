@@ -1,0 +1,64 @@
+<div class="page-container">
+  <header class="page-header">
+    <h1>Categories</h1>
+    <button type="button" class="btn btn-primary" (click)="openAdd()">
+      <app-icon name="plus" />
+      Add category
+    </button>
+  </header>
+
+  @if (categories.length === 0) {
+    <div class="card empty-state">
+      <p>No categories yet.</p>
+      <p class="muted">Create categories to organize your habits.</p>
+    </div>
+  }
+
+  @for (category of categories; track category.id) {
+    <div class="card list-card">
+      <div class="list-card-body">
+        <strong>{{ category.name }}</strong>
+      </div>
+      <div class="list-card-actions">
+        <button type="button" class="btn btn-icon" (click)="openEdit(category)" aria-label="Edit">
+          <app-icon name="pencil" />
+        </button>
+        <button type="button" class="btn btn-icon btn-danger" (click)="openDeleteConfirm(category)" aria-label="Delete">
+          <app-icon name="trash" />
+        </button>
+      </div>
+    </div>
+  }
+</div>
+
+<dialog #formDialog class="app-dialog" (click)="closeForm()">
+  <form class="dialog-panel" (click)="$event.stopPropagation()" (ngSubmit)="saveCategory()">
+    <h2>{{ editingId ? 'Edit category' : 'Add category' }}</h2>
+
+    <label class="field">
+      <span>Name</span>
+      <input type="text" [(ngModel)]="formName" name="name" placeholder="Category name" required />
+    </label>
+
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" (click)="closeForm()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog #deleteDialog class="app-dialog" (click)="closeDelete()">
+  <div class="dialog-panel" (click)="$event.stopPropagation()">
+    <h2>Delete category?</h2>
+    <p class="muted">
+      "{{ deleteTarget?.name }}" will be permanently removed. This cannot be undone.
+    </p>
+    @if (deleteError) {
+      <p class="error-text">{{ deleteError }}</p>
+    }
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" (click)="closeDelete()">Cancel</button>
+      <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+    </div>
+  </div>
+</dialog>
