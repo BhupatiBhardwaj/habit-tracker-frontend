@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  private baseUrl = `${environment.apiUrl}/auth`;
+  private baseUrl = `https://habit-tracker-api-mqws.onrender.com/api/auth`;
 
   constructor(private http: HttpClient) {}
 
