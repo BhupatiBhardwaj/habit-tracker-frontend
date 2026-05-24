@@ -2,6 +2,8 @@
 
   <h1>Register</h1>
 
+  <p class="error-text">{{errorMessage}}</p>
+
   <input
     type="text"
     placeholder="Name"
@@ -20,8 +22,12 @@
     [(ngModel)]="password"
   />
 
-  <button (click)="register()">
-    Register
+  <button
+    (click)="register()"
+    [disabled]="loading"
+    [style.opacity]="loading ? '0.6' : '1'"
+  >
+    {{ loading ? 'Registering...' : 'Register' }}
   </button>
 
   <p>

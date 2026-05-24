@@ -43,6 +43,7 @@ export interface TodayHabitCard {
   isDone?: boolean;
   quantityLog?: number;
   points?: number;
+  isHabitDeleted?: boolean;
 }
 
 export interface TodayDashboard {

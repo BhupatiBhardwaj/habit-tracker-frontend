@@ -14,6 +14,8 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
+  loading = false;
+  errorMessage = '';
 
   constructor(
     private authService: AuthService,
@@ -21,6 +23,8 @@ export class RegisterComponent {
   ) {}
 
   register() {
+
+    this.loading = true;
     const payload = {
       name: this.name,
       email: this.email,
@@ -32,9 +36,12 @@ export class RegisterComponent {
         next: (response: any) => {
           this.authService.saveToken(response.token);
           this.router.navigate(['/logs']);
+          this.loading = false;
         },
         error: (error) => {
           console.log(error);
+          this.errorMessage = error.error.message;
+          this.loading = false;
         }
       });
   }

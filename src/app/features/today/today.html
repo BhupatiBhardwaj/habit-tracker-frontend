@@ -12,22 +12,30 @@
 
   </header>
 
-
-
+<div class="top-row">
   <label class="date-picker card">
-
     <span class="date-picker-label">Date</span>
-
-    <input type="date" [(ngModel)]="selectedDate" (change)="onDateChange()" />
+    <input type="date"
+           [(ngModel)]="selectedDate"
+           (change)="onDateChange()" />
 
   </label>
 
   @if (!loading) {
     <div class="day-points-banner card">
-      <span class="day-points-label">Total points · {{ selectedDate }}</span>
-      <strong class="day-points-value">{{ dayTotalPoints }}</strong>
+
+      <span class="day-points-label">
+        Total point
+      </span>
+
+      <strong class="day-points-value">
+        {{ dayTotalPoints }}
+      </strong>
+
     </div>
   }
+
+</div>
 
 
 
@@ -153,7 +161,8 @@
 
       <button type="button" class="section-toggle" (click)="showCompleted = !showCompleted">
 
-        Logged on {{ selectedDate }} ({{ dashboard.completedToday.length }})
+        <!-- Logged on {{ selectedDate }} ({{ dashboard.completedToday.length }}) -->
+         Completed
 
         <span>{{ showCompleted ? '−' : '+' }}</span>
 
@@ -163,13 +172,19 @@
 
         @for (card of dashboard.completedToday; track card.habitId) {
 
-          <div class="card habit-card habit-done completed-card">
+          <div class="card habit-card habit-done completed-card"
+            [class]=" card.isHabitDeleted ? 'habit-deleted' : ''">
 
             <div class="habit-header">
 
-              <strong>{{ card.name }}</strong>
+              <div>
+                <strong>{{ card.name }}</strong>
+                <span ng-if="card.isHabitDeleted" style="font-size: small; padding-left: 1rem;" >  Deleted</span>
+              </div>
 
               <div class="completed-actions">
+
+                <p class="view-value">{{ formatCompletedValue(card) }}</p>
 
                 @if (card.points != null && card.points > 0) {
 
@@ -179,21 +194,19 @@
 
                 <button type="button" class="btn btn-ghost btn-sm" (click)="openEditDialog(card); $event.stopPropagation()">
 
-                  Edit
+                  <app-icon name="pencil" />
 
                 </button>
 
                 <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteEntry(card, $event)">
-
-                  Remove
-
+                  <app-icon name="trash" />
                 </button>
 
               </div>
 
             </div>
 
-            <p class="view-value">{{ formatCompletedValue(card) }}</p>
+            <!-- <p class="view-value">{{ formatCompletedValue(card) }}</p> -->
 
           </div>
 

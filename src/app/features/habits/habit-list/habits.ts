@@ -31,6 +31,7 @@ export class HabitsComponent implements OnInit {
   formFrequencyType = 1;
   formTargetCount = 1;
   deleteTarget: Habit | null = null;
+  saveLoading = false;
 
   constructor(
     private habitService: HabitService,
@@ -114,6 +115,7 @@ export class HabitsComponent implements OnInit {
   }
 
   saveHabit(): void {
+    this.saveLoading = true;
     if (!this.formName.trim()) return;
 
     const obs = this.editingId
@@ -139,7 +141,12 @@ export class HabitsComponent implements OnInit {
       next: () => {
         this.closeForm();
         this.loadHabits();
-      }
+        this.saveLoading = false;
+      },
+      error: (error) => {
+          console.log(error);
+          this.saveLoading = false;
+        }
     });
   }
 

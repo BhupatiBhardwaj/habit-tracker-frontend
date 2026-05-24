@@ -41,14 +41,14 @@
       <input type="text" [(ngModel)]="formName" name="name" placeholder="Habit name" required />
     </label>
 
-    <label class="field">
+    <!-- <label class="field">
       <span>Category</span>
       <select [(ngModel)]="formCategoryId" name="category">
         @for (category of categories; track category.id) {
           <option [value]="category.id">{{ category.name }}</option>
         }
       </select>
-    </label>
+    </label> -->
 
     <label class="field">
       <span>Type</span>
@@ -86,8 +86,14 @@
     </label>
 
     <div class="dialog-actions">
-      <button type="button" class="btn btn-ghost" (click)="closeForm()">Cancel</button>
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-ghost"
+        [disabled]="saveLoading"
+        [style.opacity]="saveLoading ? '0.6' : '1'"
+        (click)="closeForm()">Cancel</button>
+      <button 
+        type="submit" class="btn btn-primary" 
+        [disabled]="saveLoading || !formName.trim()"
+        [style.opacity]="saveLoading ? '0.6' : '1'">{{saveLoading ? 'Saving...' : 'Save'}}</button>
     </div>
   </form>
 </dialog>

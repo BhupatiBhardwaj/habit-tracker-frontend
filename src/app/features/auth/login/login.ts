@@ -15,6 +15,8 @@ export class LoginComponent {
 
   email = '';
   password = '';
+  loading = false;
+  errorMessage = '';
 
   constructor(
     private authService: AuthService,
@@ -22,6 +24,7 @@ export class LoginComponent {
   ) {}
 
   login() {
+    this.loading = true;
 
     const payload = {
       email: this.email,
@@ -33,16 +36,15 @@ export class LoginComponent {
         next: (response: any) => {
 
           this.authService.saveToken(response.token);
-
           console.log(response);
-
-          // Later redirect to dashboard
           this.router.navigate(['/logs']);
+          this.loading = false;
         },
 
         error: (error) => {
-
           console.log(error);
+          this.errorMessage = error.error.message;
+          this.loading = false;
         }
       });
   }

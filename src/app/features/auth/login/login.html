@@ -2,6 +2,8 @@
 
   <h1>Login</h1>
 
+  <p class="error-text">{{errorMessage}}</p> 
+
   <input
     type="email"
     placeholder="Email"
@@ -14,7 +16,11 @@
     [(ngModel)]="password"
   />
 
-  <button (click)="login()">
+  <button
+    (click)="login()"
+    [disabled]="loading"
+    [style.opacity]="loading ? '0.6' : '1'"
+  >
     Login
   </button>
 

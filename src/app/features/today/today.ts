@@ -11,6 +11,7 @@ import { EntryService } from '../../core/services/entry.service';
 import { TodayDashboard, TodayHabitCard } from '../../core/models/habit.models';
 
 import { getUtcTodayString } from '../../core/utils/date.util';
+import { AppIconComponent } from '../../core/components/app-icon';
 
 
 
@@ -20,7 +21,7 @@ import { getUtcTodayString } from '../../core/utils/date.util';
 
   standalone: true,
 
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppIconComponent],
 
   templateUrl: './today.html',
 
@@ -50,46 +51,24 @@ export class TodayComponent implements OnInit {
 
   };
 
-
-
   loading = false;
-
   logging = false;
-
   showCompleted = true;
-
   selectedDate = getUtcTodayString();
-
   errorMessage = '';
-
-
-
   logTarget: TodayHabitCard | null = null;
-
   editingEntryId: number | null = null;
-
   logTimeHours: number | null = null;
-
   logQuantity: number | null = null;
-
-
 
   constructor(private entryService: EntryService) {}
 
-
-
   ngOnInit(): void {
-
     this.loadDashboard();
-
   }
 
-
-
   get isToday(): boolean {
-
     return this.selectedDate === getUtcTodayString();
-
   }
 
   get dayTotalPoints(): number {
@@ -101,9 +80,7 @@ export class TodayComponent implements OnInit {
 
 
   onDateChange(): void {
-
     this.loadDashboard();
-
   }
 
 
@@ -440,7 +417,8 @@ export class TodayComponent implements OnInit {
 
       quantityLog: c.quantityLog ?? c.QuantityLog,
 
-      points: c.points ?? c.Points
+      points: c.points ?? c.Points,
+      isHabitDeleted: c.isHabitDeleted
 
     };
 

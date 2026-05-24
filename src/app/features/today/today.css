@@ -1,3 +1,13 @@
+.top-row {
+
+  display: flex;
+
+  gap: 1rem;
+
+  align-items: stretch;
+
+}
+
 .date-picker {
 
   display: flex;
@@ -9,6 +19,8 @@
   margin-bottom: 1rem;
 
   padding: 0.85rem 1rem;
+
+  flex: 1;
 
 }
 
@@ -236,6 +248,8 @@
 
   border: 1px solid #c7d2fe;
 
+  flex: 1;
+
 }
 
 .day-points-label {
@@ -249,15 +263,14 @@
 }
 
 .day-points-value {
-
   font-size: 1.5rem;
-
   font-weight: 800;
-
   color: #312e81;
-
   line-height: 1;
+}
 
+.habit-deleted{
+  opacity: 0.6;
 }
 
 
