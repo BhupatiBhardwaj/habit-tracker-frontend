@@ -16,11 +16,27 @@
     [(ngModel)]="email"
   />
 
-  <input
-    type="password"
-    placeholder="Password"
-    [(ngModel)]="password"
-  />
+  <div class="password-wrapper">
+
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      placeholder="Password"
+      [(ngModel)]="password"
+    />
+
+    <button
+      type="button"
+      class="toggle-password"
+      (click)="showPassword = !showPassword"
+    >
+
+      <app-icon
+        [name]="showPassword ? 'eye-off' : 'eye'">
+      </app-icon>
+
+    </button>
+
+  </div>
 
   <button
     (click)="register()"

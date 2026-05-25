@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
+import { AppIconComponent } from '../../../core/components/app-icon';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, AppIconComponent],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -17,6 +17,7 @@ export class LoginComponent {
   password = '';
   loading = false;
   errorMessage = '';
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
