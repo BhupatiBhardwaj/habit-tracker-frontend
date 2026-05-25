@@ -179,7 +179,9 @@
 
               <div>
                 <strong>{{ card.name }}</strong>
-                <span ng-if="card.isHabitDeleted" style="font-size: small; padding-left: 1rem;" >  Deleted</span>
+                @if(card.isHabitDeleted){
+                  <span style="font-size: small; padding-left: 1rem;" >  Deleted</span>
+                }
               </div>
 
               <div class="completed-actions">

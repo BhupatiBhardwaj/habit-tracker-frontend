@@ -37,7 +37,7 @@ export class RegisterComponent {
       .subscribe({
         next: (response: any) => {
           this.authService.saveToken(response.token);
-          this.router.navigate(['/logs']);
+          this.router.navigate(['/habits']);
           this.loading = false;
         },
         error: (error) => {
