@@ -55,7 +55,10 @@
 
       @for (card of dashboard.dailyPending; track card.habitId) {
 
-        <div class="card habit-card actionable" (click)="onLogCard(card)">
+        <div class="card habit-card actionable" 
+             (click)="onLogCard(card)"
+             [class.is-good] = "card.isGood"
+             [class.is-bad] = "!card.isGood">
 
           <div class="habit-header">
 
@@ -79,7 +82,9 @@
 
       @for (card of dashboard.weeklyProgress; track card.habitId) {
 
-        <div class="card habit-card">
+        <div class="card habit-card"
+             [class.is-good] = "card.isGood"
+             [class.is-bad] = "!card.isGood">
 
           <div class="habit-header">
 
@@ -121,7 +126,9 @@
 
       @for (card of dashboard.monthlyProgress; track card.habitId) {
 
-        <div class="card habit-card">
+        <div class="card habit-card"
+             [class.is-good] = "card.isGood"
+             [class.is-bad] = "!card.isGood">
 
           <div class="habit-header">
 
@@ -173,7 +180,9 @@
         @for (card of dashboard.completedToday; track card.habitId) {
 
           <div class="card habit-card habit-done completed-card"
-            [class]=" card.isHabitDeleted ? 'habit-deleted' : ''">
+               [class.habit-deleted] = "card.isHabitDeleted"
+               [class.is-good] = "card.isGood"
+               [class.is-bad] = "!card.isGood">
 
             <div class="habit-header">
 

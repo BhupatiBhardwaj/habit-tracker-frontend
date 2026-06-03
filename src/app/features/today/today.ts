@@ -418,7 +418,8 @@ export class TodayComponent implements OnInit {
       quantityLog: c.quantityLog ?? c.QuantityLog,
 
       points: c.points ?? c.Points,
-      isHabitDeleted: c.isHabitDeleted
+      isHabitDeleted: c.isHabitDeleted,
+      isGood: c.isGood,
 
     };
 

@@ -273,4 +273,12 @@
   opacity: 0.6;
 }
 
+.is-good{
+  background-color: #00ff4c0b !important;
+}
+
+.is-bad{
+  background-color: #ff00000b !important;  
+}
+
 
