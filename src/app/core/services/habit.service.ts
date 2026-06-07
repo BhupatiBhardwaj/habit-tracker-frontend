@@ -19,6 +19,7 @@ export class HabitService {
     pointsPerUnit: number;
     frequencyType: number;
     targetCount: number;
+    isGood: boolean;
   }) {
     return this.http.post(`${this.baseUrl}/CreateHabit`, payload);
   }
@@ -31,6 +32,7 @@ export class HabitService {
     pointsPerUnit: number;
     frequencyType: number;
     targetCount: number;
+    isGood: boolean;
   }) {
     return this.http.post(`${this.baseUrl}/UpdateHabit`, payload);
   }

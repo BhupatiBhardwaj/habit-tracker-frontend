@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HabitService } from '../../../core/services/habit.service';
 import { CategoryService } from '../../../core/services/category.service';
-import { HABIT_TYPES, FREQUENCY_TYPES, Habit, Category } from '../../../core/models/habit.models';
+import { HABIT_TYPES, FREQUENCY_TYPES, Habit, Category, HabitGoals } from '../../../core/models/habit.models';
 import { AppIconComponent } from '../../../core/components/app-icon';
 
 @Component({
@@ -22,6 +22,7 @@ export class HabitsComponent implements OnInit {
   categories: Category[] = [];
   types = [...HABIT_TYPES];
   frequencies = [...FREQUENCY_TYPES];
+  habitGoals = [...HabitGoals];
 
   editingId: number | null = null;
   formName = '';
@@ -32,6 +33,7 @@ export class HabitsComponent implements OnInit {
   formTargetCount = 1;
   deleteTarget: Habit | null = null;
   saveLoading = false;
+  habitGoalId = 1;
 
   constructor(
     private habitService: HabitService,
@@ -90,6 +92,7 @@ export class HabitsComponent implements OnInit {
     this.editingId = null;
     this.formName = '';
     this.formTypeId = 1;
+    this.habitGoalId = 1;
     this.formPointsPerUnit = 1;
     this.formFrequencyType = 1;
     this.formTargetCount = 1;
@@ -104,6 +107,7 @@ export class HabitsComponent implements OnInit {
     this.formName = habit.name;
     this.formCategoryId = habit.categoryid;
     this.formTypeId = habit.typeid;
+    this.habitGoalId = habit.isgood ? 1 : 2;
     this.formPointsPerUnit = habit.pointsperunit ?? 1;
     this.formFrequencyType = habit.frequencytype ?? 1;
     this.formTargetCount = habit.targetcount ?? 1;
@@ -126,7 +130,8 @@ export class HabitsComponent implements OnInit {
           typeId: this.formTypeId,
           pointsPerUnit: this.formPointsPerUnit,
           frequencyType: this.formFrequencyType,
-          targetCount: this.formTargetCount
+          targetCount: this.formTargetCount,
+          isGood: this.habitGoalId == 1 ? true : false,
         })
       : this.habitService.createHabit({
           name: this.formName.trim(),
@@ -134,7 +139,8 @@ export class HabitsComponent implements OnInit {
           typeId: this.formTypeId,
           pointsPerUnit: this.formPointsPerUnit,
           frequencyType: this.formFrequencyType,
-          targetCount: this.formTargetCount
+          targetCount: this.formTargetCount,
+          isGood: this.habitGoalId == 1 ? true : false,
         });
 
     obs.subscribe({

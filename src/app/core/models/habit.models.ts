@@ -10,6 +10,11 @@ export const HABIT_TYPES = [
   { id: 3, name: 'Quantity Logging' }
 ] as const;
 
+export const HabitGoals = [
+  {id: 1, name: 'Build a Habit'},
+  {id: 2, name: 'Quit a Habit'}
+]
+
 export interface Habit {
   id: number;
   userid: number;
@@ -20,6 +25,7 @@ export interface Habit {
   pointsperunit: number;
   frequencytype: number;
   targetcount: number;
+  isgood: boolean;
 }
 
 export interface Category {

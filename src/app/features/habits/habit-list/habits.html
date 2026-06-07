@@ -85,6 +85,15 @@
       />
     </label>
 
+    <label class="field">
+      <span>Goal</span>
+      <select [(ngModel)]="habitGoalId" name="goal">
+        @for (goal of habitGoals; track goal.id) {
+          <option [value]="goal.id">{{ goal.name }}</option>
+        }
+      </select>
+    </label>
+
     <div class="dialog-actions">
       <button type="button" class="btn btn-ghost"
         [disabled]="saveLoading"
@@ -95,6 +104,7 @@
         [disabled]="saveLoading || !formName.trim()"
         [style.opacity]="saveLoading ? '0.6' : '1'">{{saveLoading ? 'Saving...' : 'Save'}}</button>
     </div>
+
   </form>
 </dialog>
 
